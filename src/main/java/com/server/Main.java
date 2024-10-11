@@ -9,8 +9,6 @@ public class Main {
         System.out.println("Server Avviato");
         ServerSocket ser1 = new ServerSocket(3000);
 
-        //crea canali di in - out
-
         do{        
         Socket socket = ser1.accept();
         System.out.println("un client si è collegato");
