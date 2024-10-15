@@ -11,7 +11,7 @@ public class Main {
 
         do{        
         Socket socket = ser1.accept();
-        System.out.println("un client si è collegato");
+        System.out.println("Client si è collegato");
         
         MioThread t = new MioThread(socket);
         t.start();

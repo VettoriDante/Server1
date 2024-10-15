@@ -18,16 +18,50 @@ public class MioThread extends Thread{
     public void run() {
 
         try {
-            String input;
+            String input1;
+            String inputOperazione;
+            boolean error = false;
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
             do{
-                input = in.readLine();
-                System.out.println("String input: " + input);
+                String ans = "Risposta ";
+                //leggo il primo input1
+                input1 = in.readLine();
+                System.out.println("String input1: " + input1);
         
-                String ans = input.toUpperCase();
-                out.writeBytes(ans + "\n");
-                if(input.equals("!"))break;
+                //leggo il secondo input e veridico l'input
+                    inputOperazione = in.readLine();
+                    System.out.println(inputOperazione);
+                    switch (inputOperazione) {
+                        case "M":
+                            ans += input1.toUpperCase();
+                        break;
+                        case "m":
+                            ans += input1.toLowerCase();
+                        break;
+                        case "r":
+                            ans += new StringBuilder(input1).reverse().toString();
+                        break;
+                        case "c":
+                            ans += Integer.toString(input1.length());
+                        break;
+                        case "ex":
+                            ans = "!";
+                        break;
+                        default:
+                            System.out.println("Valore errato");
+                            error = true;
+                        break;
+                    }
+                    if(ans.equals("!"))break;
+                if(!error){
+                    out.writeBytes(ans + "\n");
+                    System.out.println(ans);
+                }
+                else
+                {
+                    out.writeBytes("!!!\n");
+                }
             }while(true);
             
             socket.close();
